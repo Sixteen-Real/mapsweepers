@@ -954,7 +954,16 @@ AddCSLuaFile "_main/client/cl_bulletshields.lua"
 		end
 	end)
 	
+	jcms.itemAutoPickupWhitelist = {
+	["item_healthkit"] = true,
+	["item_healthvial"] = true,
+	["item_battery"] = true,
+	["item_ammo_ar2_altfire"] = true,
+	}
 	function GM:PlayerCanPickupItem(ply, item)
+		if jcms.team_JCorp_player(ply) and jcms.itemAutoPickupWhitelist[item:GetClass()] then
+			return true
+		end
 		return jcms.team_JCorp_player(ply) and (item:IsPlayerHolding() or item.jcms_autoPickup)
 	end
 
